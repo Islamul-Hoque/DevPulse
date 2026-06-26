@@ -1,7 +1,7 @@
 import express, { type Application, type Request, type Response } from "express";;
 import CookieParser from "cookie-parser";
 import cors from "cors";
-// import globalErrorHandler from "./middleware/globalErrorHandler";
+import globalErrorHandler from "./middleware/globalErrorHandler";
 
 const app: Application = express();
 
@@ -38,5 +38,5 @@ app.get("/", (req: Request, res: Response) => {
 
 
 // Global Error Handling Middleware
-// app.use(globalErrorHandler);
+app.use(globalErrorHandler);
 export default app;
