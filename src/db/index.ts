@@ -9,39 +9,38 @@ export const pool = new Pool({
 // Setup PostgreSQL schema and create table if it doesn't exist
 export const initDB = async () => {
     try {
-
         // create 'users' table
-        // await pool.query(`
-        // CREATE TABLE IF NOT EXISTS users(
-        // id SERIAL PRIMARY KEY,
-        // name VARCHAR(20),
-        // email VARCHAR(20) UNIQUE NOT NULL,
-        // password TEXT NOT NULL,
-        // is_active BOOLEAN DEFAULT true,
-        // age INT,
-        // role VARCHAR(10) DEFAULT 'user',
+        await pool.query(`
+            CREATE TABLE IF NOT EXISTS users(
+            id SERIAL PRIMARY KEY,
+            name VARCHAR(50) NOT NULL,
+            email VARCHAR(50) UNIQUE NOT NULL,
+            password TEXT NOT NULL,
+            role VARCHAR(15) DEFAULT 'contributor' CHECK (role IN ('contributor', 'maintainer')),
 
-        // created_at TIMESTAMP DEFAULT NOW(),
-        // updated_at TIMESTAMP DEFAULT NOW()
-        // )
-        // `)
+            created_at TIMESTAMP DEFAULT NOW(),
+            updated_at TIMESTAMP DEFAULT NOW()
+            )
+        `)
+
         console.log("Database connected successfully!");
 
-        // create 'profile' table
-        // await pool.query(`
-        // CREATE TABLE IF NOT EXISTS profiles(
-        // id SERIAL PRIMARY KEY,
-        // user_id INT UNIQUE REFERENCES users(id) ON DELETE CASCADE,
+        // create 'issues' table
+        await pool.query(`
+            CREATE TABLE IF NOT EXISTS issues(
+            id SERIAL PRIMARY KEY,
+            title VARCHAR(150) NOT NULL,
+            description TEXT NOT NULL CHECK (char_length(description) >= 20),
+            type VARCHAR(20) NOT NULL CHECK (type IN ('bug', 'feature_request')),
 
-        // bio TEXT,
-        // address TEXT,
-        // phone VARCHAR(15),
-        // gender VARCHAR(10),
+            status VARCHAR(20) DEFAULT 'open' CHECK (status IN ('open', 'in_progress', 'resolved')),
 
-        // created_at TIMESTAMP DEFAULT NOW(),
-        // updated_at TIMESTAMP DEFAULT NOW()
-        // )
-        // `)
+            reporter_id INT NOT NULL,
+
+            created_at TIMESTAMP DEFAULT NOW(),
+            updated_at TIMESTAMP DEFAULT NOW()
+            )
+        `)
     } catch (error) {
         console.log(error);
     }
