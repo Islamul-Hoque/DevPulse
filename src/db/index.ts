@@ -23,8 +23,6 @@ export const initDB = async () => {
             )
         `)
 
-        console.log("Database connected successfully!");
-
         // create 'issues' table
         await pool.query(`
             CREATE TABLE IF NOT EXISTS issues(
@@ -41,6 +39,8 @@ export const initDB = async () => {
             updated_at TIMESTAMP DEFAULT NOW()
             )
         `)
+
+        console.log("Database connected successfully!");
     } catch (error) {
         console.log(error);
     }
