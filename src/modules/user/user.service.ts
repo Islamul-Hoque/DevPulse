@@ -18,8 +18,6 @@ const createUserIntoDB = async (payload: IUser) => {
         [name, email, hashPassword, role],
     );
 
-    console.log("Payload received:", payload);
-
     // Delete password
     delete result.rows[0].password;
     return result;

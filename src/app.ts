@@ -3,6 +3,7 @@ import CookieParser from "cookie-parser";
 import cors from "cors";
 import globalErrorHandler from "./middleware/globalErrorHandler";
 import { userRoute } from "./modules/user/user.route";
+import { authRoute } from "./modules/auth/auth.route";
 
 
 const app: Application = express();
@@ -38,7 +39,7 @@ app.get("/", (req: Request, res: Response) => {
 
 // Application routing setup
 app.use('/api/auth', userRoute);
-// app.use('/api/auth', authRouter);
+app.use('/api/auth', authRoute);
 // app.use('/api/issues',issueRouter);
 
 // Global Error Handling Middleware
