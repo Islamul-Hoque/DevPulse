@@ -5,26 +5,26 @@ import sendResponse from "../../utility/sendResponse";
 
 
 // New user Create ==> "POST" 
-// const createUser = async (req: Request, res: Response) => {
-//     try {
-//         const result = await userService.createUserIntoDB(req.body);
+const createUser = async (req: Request, res: Response) => {
+    try {
+        const result = await userService.createUserIntoDB(req.body);
 
-//         // Response
-//         sendResponse(res, {
-//             success: true,
-//             statusCode: 201,
-//             message: "User registered successfully",
-//             data: result.rows[0],
-//         });
-//     } catch (error: any) {
-//         sendResponse(res, {
-//             success: false,
-//             statusCode: 500,
-//             message: error.message,
-//             error: error,
-//         });
-//     }
-// }
+        // Response
+        sendResponse(res, {
+            success: true,
+            statusCode: 201,
+            message: "User registered successfully",
+            data: result.rows[0],
+        });
+    } catch (error: any) {
+        sendResponse(res, {
+            success: false,
+            statusCode: 500,
+            message: error.message,
+            error: error,
+        });
+    }
+}
 
 // // "GET" All User
 // const getAllUsers = async (req: Request, res: Response) => {
