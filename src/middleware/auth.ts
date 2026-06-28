@@ -21,6 +21,7 @@ const auth = (...roles: ROLES[]) => {
                 })
             }
 
+            // JWT Verification
             const decoded = jwt.verify(
                 token as string,
                 config.secret as string,
@@ -34,7 +35,7 @@ const auth = (...roles: ROLES[]) => {
                 [decoded.email],
             );
 
-            // Handle case when user not found
+            // User Not Found Handling
             if (userData.rows.length === 0) {
             return sendResponse(res, {
                     statusCode: 404,
@@ -43,16 +44,16 @@ const auth = (...roles: ROLES[]) => {
                 })
             }
 
-            // const user = userData.rows[0];
+            const user = userData.rows[0];
 
-            // // Enforce role-based access control
-            // if (roles.length && !roles.includes(user.role)) {
-            // return sendResponse(res, {
-            //         statusCode: 403,
-            //         success: false,
-            //         message: "Access denied. Your role does not have permission to access this resource.",
-            //     })
-            // }
+            // Enforce role-based access control
+            if (roles.length && !roles.includes(user.role)) {
+            return sendResponse(res, {
+                    statusCode: 403,
+                    success: false,
+                    message: "Access denied. Your role does not have permission to access this resource.",
+                })
+            }
 
             // req.user = decoded;
 
