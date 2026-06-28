@@ -4,6 +4,7 @@ import cors from "cors";
 import globalErrorHandler from "./middleware/globalErrorHandler";
 import { userRoute } from "./modules/user/user.route";
 import { authRoute } from "./modules/auth/auth.route";
+import { issueRouter } from "./modules/issues/issue.router";
 
 
 const app: Application = express();
@@ -40,7 +41,7 @@ app.get("/", (req: Request, res: Response) => {
 // Application routing setup
 app.use('/api/auth', userRoute);
 app.use('/api/auth', authRoute);
-// app.use('/api/issues',issueRouter);
+app.use('/api/issues',issueRouter);
 
 // Global Error Handling Middleware
 app.use(globalErrorHandler);

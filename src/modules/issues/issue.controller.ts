@@ -1,16 +1,27 @@
 import { type Request, type Response } from 'express'
 import sendResponse from '../../utility/sendResponse';
+import { issueService } from './issue.service';
 
 const createIssue = async (req: Request, res: Response) => {
     try {
         const { title, description, type } = req.body;
-        const reporter_id = (req as any).user?.id;
 
+        // Get reporter_id
+        const reporter_id = req.user?.id;
+
+        // If reporter_id is missing,
         if (!reporter_id) {
-            return res.status(401).json({ success: false, message: "Unauthorized" });
+            return sendResponse(res, {
+                statusCode: 401,
+                success: false,
+                message: "Unauthorized"
+            });
         }
 
-        const result = await issueService.createIssueIntoDB({ title, description, type, reporter_id  });
+        // insert new issue into database
+        const result = await issueService.createIssueIntoDB({ title, description, type, reporter_id });
+
+        // success response
         sendResponse(res, {
             statusCode: 201,
             success: true,
@@ -21,7 +32,7 @@ const createIssue = async (req: Request, res: Response) => {
         sendResponse(res, {
             statusCode: 500,
             success: false,
-            message: error instanceof Error ? error.message : "An unknown error occurred",
+            message: error instanceof Error ? error.message : "Something went wrong. Please try again later.",
             error: error
         })
     }
