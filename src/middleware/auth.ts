@@ -55,7 +55,8 @@ const auth = (...roles: ROLES[]) => {
                 })
             }
 
-            // req.user = decoded;
+            // Attach Decoded Payload
+            req.user = decoded;
 
             next();
         } catch (error) {
