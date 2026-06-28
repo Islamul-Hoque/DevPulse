@@ -26,13 +26,13 @@ const auth = (...roles: ROLES[]) => {
                 config.secret as string,
             ) as JwtPayload;
 
-            // // Query database to find user by decoded email
-            // const userData = await pool.query( `
-            //     SELECT * FROM users 
-            //     WHERE email=$1   
-            // `,
-            //     [decoded.email],
-            // );
+            // Query database to find user by decoded email
+            const userData = await pool.query( `
+                SELECT * FROM users 
+                WHERE email=$1   
+            `,
+                [decoded.email],
+            );
 
             // // Handle case when user not found
             // if (userData.rows.length === 0) {
