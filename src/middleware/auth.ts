@@ -34,14 +34,14 @@ const auth = (...roles: ROLES[]) => {
                 [decoded.email],
             );
 
-            // // Handle case when user not found
-            // if (userData.rows.length === 0) {
-            // return sendResponse(res, {
-            //         statusCode: 404,
-            //         success: false,
-            //         message: "No user account associated with this token.",
-            //     })
-            // }
+            // Handle case when user not found
+            if (userData.rows.length === 0) {
+            return sendResponse(res, {
+                    statusCode: 404,
+                    success: false,
+                    message: "No user account associated with this token.",
+                })
+            }
 
             // const user = userData.rows[0];
 
