@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
     cors({
-        origin: ["http://localhost:3000", "https://dev-pulse-api.vercel.app"],
+        origin: ["http://localhost:3000", "https://devpulse-prod.vercel.app"],
         methods: ["GET", "POST", "PUT", "DELETE"],
         allowedHeaders: ["Content-Type", "Authorization"],
         credentials: true,
