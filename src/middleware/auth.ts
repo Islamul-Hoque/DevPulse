@@ -21,10 +21,10 @@ const auth = (...roles: ROLES[]) => {
                 })
             }
 
-            // const decoded = jwt.verify(
-            //     token as string,
-            //     config.secret as string,
-            // ) as JwtPayload;
+            const decoded = jwt.verify(
+                token as string,
+                config.secret as string,
+            ) as JwtPayload;
 
             // // Query database to find user by decoded email
             // const userData = await pool.query( `
