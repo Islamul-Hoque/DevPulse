@@ -10,12 +10,7 @@ const createIssue = async (req: Request, res: Response) => {
             return res.status(401).json({ success: false, message: "Unauthorized" });
         }
 
-        const result = await issueService.createIssueIntoDB({
-            title,
-            description,
-            type,
-            reporter_id
-        });
+        const result = await issueService.createIssueIntoDB({ title, description, type, reporter_id  });
         sendResponse(res, {
             statusCode: 201,
             success: true,
