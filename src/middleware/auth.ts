@@ -12,14 +12,14 @@ const auth = (...roles: ROLES[]) => {
             // Extract token from request headers
             const token = req.headers.authorization;
 
-            // // Check if the token exists
-            // if (!token) {
-            // return sendResponse(res, {
-            //         statusCode: 401,
-            //         success: false,
-            //         message: "Access denied. Authorization token is missing.",
-            //     })
-            // }
+            // Check if the token exists
+            if (!token) {
+            return sendResponse(res, {
+                    statusCode: 401,
+                    success: false,
+                    message: "Access denied. Authorization token is missing.",
+                })
+            }
 
             // const decoded = jwt.verify(
             //     token as string,
