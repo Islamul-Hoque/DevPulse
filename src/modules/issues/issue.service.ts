@@ -79,13 +79,15 @@ const getAllIssuesFromDB = async (sort: string = "newest", type?: string, status
 
 // Get single issue by ID
 const getSingleIssueFromDB = async (id: number) => {
-    // // Fetch issue by id
-    // const issueResult = await pool.query(
-    //     `SELECT * FROM issues WHERE id = $1`,
-    //     [id]
-    // );
-    // const issue = issueResult.rows[0];
 
+    // Issue fetch by ID
+    const issueResult = await pool.query(
+        `SELECT * FROM issues WHERE id = $1`,
+        [id]
+    );
+    const issue = issueResult.rows[0];
+
+    // // Handle not found issue
     // if (!issue) return null;
 
     // // Fetch reporter details
