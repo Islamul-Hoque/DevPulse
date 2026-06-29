@@ -2,6 +2,7 @@ import { type Request, type Response } from 'express'
 import sendResponse from '../../utility/sendResponse';
 import { issueService } from './issue.service';
 
+// Create new issue
 const createIssue = async (req: Request, res: Response) => {
     try {
         const { title, description, type } = req.body;
@@ -38,30 +39,37 @@ const createIssue = async (req: Request, res: Response) => {
     }
 }
 
-// const getAllIssues = async (req: Request, res: Response) => {
-//     try {
-//         const { sort, type, status } = req.query;
-//         const result = await issueService.getAllIssuesFromDB(
-//             (sort as string) || 'newest',
-//             type as string,
-//             status as string
-//         );
-//         sendResponse(res, {
-//             statusCode: 200,
-//             success: true,
-//             message: "All issues fetched successfully",
-//             data: result.rows
-//         })
+// Get all issues
+const getAllIssues = async (req: Request, res: Response) => {
+    try {
 
-//     } catch (error) {
-//         sendResponse(res, {
-//             statusCode: 500,
-//             success: false,
-//             message: error instanceof Error ? error.message : "An unknown error occurred",
-//             error: error
-//         })
-//     }
-// }
+        // Query extraction
+        const { sort, type, status } = req.query;
+
+        // // Service call
+        // const result = await issueService.getAllIssuesFromDB(
+        //     (sort as string) || 'newest',
+        //     type as string,
+        //     status as string
+        // );
+
+        // // Success response
+        // sendResponse(res, {
+        //     statusCode: 200,
+        //     success: true,
+        //     message: "Issues retrieved successfully",
+        //     data: result
+        // })
+
+    } catch (error) {
+        sendResponse(res, {
+            statusCode: 500,
+            success: false,
+            message: error instanceof Error ? error.message : "Something went wrong.",
+            error: error
+        })
+    }
+}
 
 // const getSingleIssue = async (req: Request, res: Response) => {
 //     const { id } = req.params;
@@ -206,7 +214,7 @@ const createIssue = async (req: Request, res: Response) => {
 
 export const issueController = {
     createIssue,
-    // getAllIssues,
+    getAllIssues,
     // getSingleIssue,
     // updateIssue,
     // deleteIssue
