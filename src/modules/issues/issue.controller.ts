@@ -134,18 +134,18 @@ const updateIssue = async (req: Request, res: Response) => {
             });
         }
 
-        // // Extract logged-in user info from request
-        // const loggedInUserId = req.user?.id;
-        // const userRole = req.user?.role;
+        // Extract logged in user info from request
+        const loggedInUserId = req.user?.id;
+        const userRole = req.user?.role;
 
-        // // If user not authenticated
-        // if (!loggedInUserId) {
-        //     return sendResponse(res, {
-        //         statusCode: StatusCodes.UNAUTHORIZED,
-        //         success: false,
-        //         message: 'Unauthorized'
-        //     });
-        // }
+        // If user not authenticated
+        if (!loggedInUserId) {
+            return sendResponse(res, {
+                statusCode: StatusCodes.UNAUTHORIZED,
+                success: false,
+                message: 'Unauthorized'
+            });
+        }
 
         // if (userRole === 'contributor') {
         //     if (existingIssue.reporter?.id !== loggedInUserId) {
