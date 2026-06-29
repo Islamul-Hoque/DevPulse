@@ -90,12 +90,12 @@ const getSingleIssueFromDB = async (id: number) => {
     // Handle not found issue
     if (!issue) return null;
 
-    // // Fetch reporter details
-    // const reporterResult = await pool.query(
-    //     `SELECT id, name, role FROM users WHERE id = $1`,
-    //     [issue.reporter_id]
-    // );
-    // const reporter = reporterResult.rows[0];
+    // Fetch reporter details
+    const reporterResult = await pool.query(
+        `SELECT id, name, role FROM users WHERE id = $1`,
+        [issue.reporter_id]
+    );
+    const reporter = reporterResult.rows[0];
 
     // // Merge reporter details
     // const { reporter_id, created_at, updated_at, ...rest } = issue;
