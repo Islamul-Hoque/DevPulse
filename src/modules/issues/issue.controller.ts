@@ -165,16 +165,16 @@ const updateIssue = async (req: Request, res: Response) => {
             }
         }
 
-        // // Perform update operation in DB
-        // const result = await issueService.updateIssueInDB(Number(id), req.body);
+        // Perform update operation in DB
+        const result = await issueService.updateIssueInDB(Number(id), req.body);
 
-        // // Success response
-        // sendResponse(res, {
-        //     statusCode: StatusCodes.OK,
-        //     success: true,
-        //     message: "Issue updated successfully",
-        //     data: result
-        // });
+        // Success response
+        sendResponse(res, {
+            statusCode: StatusCodes.OK,
+            success: true,
+            message: "Issue updated successfully",
+            data: result
+        });
     } catch (error) {
         sendResponse(res, {
             statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
