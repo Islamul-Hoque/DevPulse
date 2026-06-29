@@ -46,12 +46,12 @@ const getAllIssues = async (req: Request, res: Response) => {
         // Query extraction
         const { sort, type, status } = req.query;
 
-        // // Service call
-        // const result = await issueService.getAllIssuesFromDB(
-        //     (sort as string) || 'newest',
-        //     type as string,
-        //     status as string
-        // );
+        // Service call
+        const result = await issueService.getAllIssuesFromDB(
+            (sort as string) || 'newest',
+            type as string,
+            status as string
+        );
 
         // // Success response
         // sendResponse(res, {
