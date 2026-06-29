@@ -57,22 +57,22 @@ const getAllIssuesFromDB = async ( sort: string = "newest", type?: string, statu
     );
     const reporters = reportersResult.rows;
 
-    // // Merge reporter details into issues
-    // const enrichedIssues = issues.map(({ reporter_id, created_at, updated_at, ...issue }) => {
-    //     const reporter = reporters.find((r) => r.id === reporter_id);
-    //     return {
-    //         ...issue,
-    //         reporter: reporter
-    //             ? {
-    //                 id: reporter.id,
-    //                 name: reporter.name,
-    //                 role: reporter.role,
-    //             }
-    //             : null,
-    //         created_at,
-    //         updated_at,
-    //     };
-    // });
+    // Merge reporter details into issues
+    const enrichedIssues = issues.map(({ reporter_id, created_at, updated_at, ...issue }) => {
+        const reporter = reporters.find((r) => r.id === reporter_id);
+        return {
+            ...issue,
+            reporter: reporter
+                ? {
+                    id: reporter.id,
+                    name: reporter.name,
+                    role: reporter.role,
+                }
+                : null,
+            created_at,
+            updated_at,
+        };
+    });
 
     return enrichedIssues;
 };
