@@ -53,6 +53,16 @@ const getAllIssues = async (req: Request, res: Response) => {
             status as string
         );
 
+        // Handle empty result
+        if (result.length === 0) {
+            return sendResponse(res, {
+                statusCode: 200,
+                success: true,
+                message: "No issues found matching your filters.",
+                data: []
+            });
+        }
+
         // Success response
         sendResponse(res, {
             statusCode: 200,

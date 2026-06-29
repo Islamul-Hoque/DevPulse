@@ -18,11 +18,7 @@ const createIssueIntoDB = async (payload: IIssue) => {
 }
 
 // Get all issues
-// const getAllIssuesFromDB = async (
-//     sort: string = "newest",
-//     type?: string,
-//     status?: string
-// ) => {
+// const getAllIssuesFromDB = async ( sort: string = "newest", type?: string, status?: string) => {
 //     // 1. Build base query for issues
 //     let query = `SELECT * FROM issues`;
 //     const values: any[] = [];
