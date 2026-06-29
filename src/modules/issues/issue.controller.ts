@@ -147,22 +147,23 @@ const updateIssue = async (req: Request, res: Response) => {
             });
         }
 
-        // if (userRole === 'contributor') {
-        //     if (existingIssue.reporter?.id !== loggedInUserId) {
-        //         return sendResponse(res, {
-        //             statusCode: StatusCodes.UNAUTHORIZED,
-        //             success: false,
-        //             message: 'You are not authorized to update this issue'
-        //         });
-        //     }
-        //     if (existingIssue.status !== 'open') {
-        //         return sendResponse(res, {
-        //             statusCode: StatusCodes.UNAUTHORIZED,
-        //             success: false,
-        //             message: "You can only update issues with an 'open' status"
-        //         });
-        //     }
-        // }
+        // role based issue update logic 
+        if (userRole === 'contributor') {
+            if (existingIssue.reporter?.id !== loggedInUserId) {
+                return sendResponse(res, {
+                    statusCode: StatusCodes.UNAUTHORIZED,
+                    success: false,
+                    message: 'You are not authorized to update this issue'
+                });
+            }
+            if (existingIssue.status !== 'open') {
+                return sendResponse(res, {
+                    statusCode: StatusCodes.UNAUTHORIZED,
+                    success: false,
+                    message: "You can only update issues with an 'open' status"
+                });
+            }
+        }
 
         // // Perform update operation in DB
         // const result = await issueService.updateIssueInDB(Number(id), req.body);
