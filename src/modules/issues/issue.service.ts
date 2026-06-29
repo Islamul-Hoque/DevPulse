@@ -87,8 +87,8 @@ const getSingleIssueFromDB = async (id: number) => {
     );
     const issue = issueResult.rows[0];
 
-    // // Handle not found issue
-    // if (!issue) return null;
+    // Handle not found issue
+    if (!issue) return null;
 
     // // Fetch reporter details
     // const reporterResult = await pool.query(
