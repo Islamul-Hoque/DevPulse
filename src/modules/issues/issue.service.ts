@@ -98,19 +98,19 @@ const getSingleIssueFromDB = async (id: number) => {
     const reporter = reporterResult.rows[0];
 
     // // Merge reporter details
-    // const { reporter_id, created_at, updated_at, ...rest } = issue;
+    const { reporter_id, created_at, updated_at, ...rest } = issue;
 
     return {
-        // ...rest,
-        // reporter: reporter
-        //     ? {
-        //         id: reporter.id,
-        //         name: reporter.name,
-        //         role: reporter.role,
-        //     }
-        //     : null,
-        // created_at,
-        // updated_at,
+        ...rest,
+        reporter: reporter
+            ? {
+                id: reporter.id,
+                name: reporter.name,
+                role: reporter.role,
+            }
+            : null,
+        created_at,
+        updated_at,
     };
 };
 
