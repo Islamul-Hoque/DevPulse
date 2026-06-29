@@ -1,6 +1,8 @@
 import { type Request, type Response } from 'express'
 import sendResponse from '../../utility/sendResponse';
 import { issueService } from './issue.service';
+import { userService } from '../user/user.service';
+import { StatusCodes } from 'http-status-codes';
 
 // Create new issue
 const createIssue = async (req: Request, res: Response) => {
@@ -81,6 +83,7 @@ const getAllIssues = async (req: Request, res: Response) => {
     }
 }
 
+// Get single issue
 // const getSingleIssue = async (req: Request, res: Response) => {
 //     const { id } = req.params;
 //     try {
@@ -95,6 +98,7 @@ const getAllIssues = async (req: Request, res: Response) => {
 //         }
 
 //         const issue = result.rows[0];
+
 //         const userResult = await userService.getSingleUserFromDB(issue.reporter_id);
 //         const user = userResult.rows[0];
 
@@ -129,6 +133,43 @@ const getAllIssues = async (req: Request, res: Response) => {
 //         })
 //     }
 // }
+
+
+// Get single issue controller
+const getSingleIssue = async (req: Request, res: Response) => {
+    try {
+        // Extract issue ID 
+        const { id } = req.params;
+        const issue = await issueService.getSingleIssueFromDB(Number(id));
+
+        // If issue not found
+        if (!issue) {
+            return sendResponse(res, {
+                statusCode: StatusCodes.NOT_FOUND,
+                success: false,
+                message: "Issue not found",
+                data: null,
+            });
+        }
+
+        // // Success response
+        // sendResponse(res, {
+        //     statusCode: StatusCodes.OK,
+        //     success: true,
+        //     message: "Issue retrieved successfully",
+        //     data: issue,
+        // });
+    } catch (error) {
+        sendResponse(res, {
+            statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+            success: false,
+            message: error instanceof Error ? error.message : "Something went wrong.",
+            error,
+        });
+    }
+};
+
+
 
 // const updateIssue = async (req: Request, res: Response) => {
 //     const { id } = req.params;
@@ -225,7 +266,7 @@ const getAllIssues = async (req: Request, res: Response) => {
 export const issueController = {
     createIssue,
     getAllIssues,
-    // getSingleIssue,
+    getSingleIssue,
     // updateIssue,
     // deleteIssue
 }

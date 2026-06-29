@@ -34,18 +34,18 @@ const createUserIntoDB = async (payload: IUser) => {
 //     return result;
 // };
 
-// // "GET" Single user
-// const getSingleUserFromDB = async (id: string) => {
-//         const result = await pool.query(`
-//             SELECT * FROM users 
-//             WHERE id=$1  
-//         `, [id],
-//         );
+// "GET" Single user
+const getSingleUserFromDB = async (id: string) => {
+        const result = await pool.query(`
+            SELECT * FROM users 
+            WHERE id=$1  
+        `, [id],
+        );
 
-//     // Delete password from array
-//     delete result.rows[0].password;
-//     return result;
-// };
+    // Delete password from array
+    delete result.rows[0].password;
+    return result;
+};
 
 // // Update user info using "PUT" method
 // const updateUserFromDB = async (payload: IUser, id: string) => {
@@ -84,7 +84,7 @@ const createUserIntoDB = async (payload: IUser) => {
 export const userService = {
     createUserIntoDB,
     // getAllUsersFromDB,
-    // getSingleUserFromDB,
+    getSingleUserFromDB,
     // updateUserFromDB,
     // deleteUserFromDB,
 };

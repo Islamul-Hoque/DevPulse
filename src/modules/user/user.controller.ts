@@ -48,34 +48,36 @@ const createUser = async (req: Request, res: Response) => {
 //     }
 // }
 
-// // "GET" Single user
-// const getSingleUser = async (req: Request, res: Response) => {
-//     const { id } = req.params;
 
-//     try {
-//         const result = await userService.getSingleUserFromDB(id as string);
 
-//         if (result.rows.length === 0) {
-//             res.status(404).json({
-//                 success: false,
-//                 message: "User Not found!",
-//                 data: {},
-//             });
-//         }
+// "GET" Single user
+const getSingleUser = async (req: Request, res: Response) => {
+    const { id } = req.params;
 
-//         res.status(200).json({
-//             success: true,
-//             message: "User retrieved successfully!",
-//             data: result.rows[0],
-//         });
-//     } catch (error: any) {
-//         res.status(500).json({
-//             success: false,
-//             message: error.message,
-//             error: error,
-//         });
-//     }
-// }
+    try {
+        const result = await userService.getSingleUserFromDB(id as string);
+
+        if (result.rows.length === 0) {
+            res.status(404).json({
+                success: false,
+                message: "User Not found!",
+                data: {},
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "User retrieved successfully!",
+            data: result.rows[0],
+        });
+    } catch (error: any) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+            error: error,
+        });
+    }
+}
 
 // // Update user info using "PUT" method
 // const updateUser = async (req: Request, res: Response) => {
@@ -140,7 +142,7 @@ const createUser = async (req: Request, res: Response) => {
 export const userController = {
     createUser,
     // getAllUsers,
-    // getSingleUser,
+    getSingleUser,
     // updateUser,
     // deleteUser,
 };

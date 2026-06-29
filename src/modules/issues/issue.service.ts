@@ -18,7 +18,7 @@ const createIssueIntoDB = async (payload: IIssue) => {
 }
 
 // Get all issues
-const getAllIssuesFromDB = async ( sort: string = "newest", type?: string, status?: string) => {
+const getAllIssuesFromDB = async (sort: string = "newest", type?: string, status?: string) => {
 
     let query = `SELECT * FROM issues`;
     const values: any[] = [];
@@ -77,47 +77,51 @@ const getAllIssuesFromDB = async ( sort: string = "newest", type?: string, statu
     return enrichedIssues;
 };
 
+// Get single issue by ID
+const getSingleIssueFromDB = async (id: number) => {
+    // // Fetch issue by id
+    // const issueResult = await pool.query(
+    //     `SELECT * FROM issues WHERE id = $1`,
+    //     [id]
+    // );
+    // const issue = issueResult.rows[0];
 
+    // if (!issue) return null;
 
+    // // Fetch reporter details
+    // const reporterResult = await pool.query(
+    //     `SELECT id, name, role FROM users WHERE id = $1`,
+    //     [issue.reporter_id]
+    // );
+    // const reporter = reporterResult.rows[0];
 
+    // // Merge reporter details
+    // const { reporter_id, created_at, updated_at, ...rest } = issue;
 
-// const getAllIssuesFromDB = async (sort: string = 'newest', type?: string, status?: string) => {
-//     // Query
-//     let query = `SELECT * FROM issues`;
-//     const values: any[] = [];
-//     const conditions: string[] = [];
+    return {
+        // ...rest,
+        // reporter: reporter
+        //     ? {
+        //         id: reporter.id,
+        //         name: reporter.name,
+        //         role: reporter.role,
+        //     }
+        //     : null,
+        // created_at,
+        // updated_at,
+    };
+};
 
-//     if (type) {
-//         values.push(type);
-//         conditions.push(`type = $${values.length}`);
-//     }
-
-//     if (status) {
-//         values.push(status);
-//         conditions.push(`status = $${values.length}`);
-//     }
-
-//     if (conditions.length > 0) {
-//         query += ` WHERE ` + conditions.join(' AND ');
-//     }
-
-//     if (sort === 'oldest') {
-//         query += ` ORDER BY created_at ASC`;
-//     } else {
-//         query += ` ORDER BY created_at DESC`;
-//     }
-
-//     const result = await pool.query(query, values);
-//     return result;
-// }
 
 // const getSingleIssueFromDB = async (id: number) => {
 //     const result = await pool.query(
-//         `SELECT * FROM issues WHERE id = $1`,
+//         `SELECT * FROM issues
+//             WHERE id = $1`,
 //         [id]
 //     )
 //     return result;
 // }
+
 
 
 
@@ -150,7 +154,7 @@ const getAllIssuesFromDB = async ( sort: string = "newest", type?: string, statu
 export const issueService = {
     createIssueIntoDB,
     getAllIssuesFromDB,
-    //     getSingleIssueFromDB,
+    getSingleIssueFromDB,
     //     updateIssueInDB,
     //     deleteIssueFromDB
 }
