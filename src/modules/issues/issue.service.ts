@@ -41,11 +41,11 @@ const getAllIssuesFromDB = async ( sort: string = "newest", type?: string, statu
         ? ` ORDER BY created_at ASC`
         : ` ORDER BY created_at DESC`;
 
-    // // Fetch issues
-    // const issuesResult = await pool.query(query, values);
-    // const issues = issuesResult.rows;
+    // Issues fetch and empty case handle
+    const issuesResult = await pool.query(query, values);
+    const issues = issuesResult.rows;
 
-    // if (issues.length === 0) return [];
+    if (issues.length === 0) return [];
 
     // // Collect reporter_ids
     // const reporterIds = issues.map((issue) => issue.reporter_id);
