@@ -115,67 +115,74 @@ const getSingleIssue = async (req: Request, res: Response) => {
     }
 };
 
-// role base update issue 
-// const updateIssue = async (req: Request, res: Response) => {
-//     const { id } = req.params;
-//     try {
-//         const existingIssueResult = await issueService.getSingleIssueFromDB(Number(id));
+// Update issue with role-based access
+const updateIssue = async (req: Request, res: Response) => {
 
-//         if (existingIssueResult.rows.length === 0) {
-//             return sendResponse(res, {
-//                 statusCode: StatusCodes.NOT_FOUND,
-//                 success: false,
-//                 message: 'Issue not found'
-//             })
-//         }
+    // Extract issue ID 
+    const { id } = req.params;
 
-//         const existingIssue = existingIssueResult.rows[0];
+    // try {
+    //     // Fetch existing issue from DB
+    //     const existingIssue = await issueService.getSingleIssueFromDB(Number(id));
 
-//         const loggedInUserId = (req as any).user?.id;
-//         const userRole = (req as any).user?.role;
+    //     // If issue not found
+    //     if (!existingIssue) {
+    //         return sendResponse(res, {
+    //             statusCode: StatusCodes.NOT_FOUND,
+    //             success: false,
+    //             message: 'Issue not found'
+    //         });
+    //     }
 
-//         if (!loggedInUserId) {
-//             return sendResponse(res, {
-//                 statusCode: 401,
-//                 success: false,
-//                 message: 'Unauthorized'
-//             })
-//         }
+    //     // Extract logged-in user info from request
+    //     const loggedInUserId = req.user?.id;
+    //     const userRole = req.user?.role;
 
-//         if (userRole === 'contributor') {
-//             if (existingIssue.reporter_id !== loggedInUserId) {
-//                 return sendResponse(res, {
-//                     statusCode: 403,
-//                     success: false,
-//                     message: 'You are not authorized to update this issue'
-//                 })
-//             }
-//             if (existingIssue.status !== 'open') {
-//                 return sendResponse(res, {
-//                     statusCode: 403,
-//                     success: false,
-//                     message: "You can only update issues with an 'open' status"
-//                 })
-//             }
-//         }
+    //     // If user not authenticated
+    //     if (!loggedInUserId) {
+    //         return sendResponse(res, {
+    //             statusCode: StatusCodes.UNAUTHORIZED,
+    //             success: false,
+    //             message: 'Unauthorized'
+    //         });
+    //     }
 
-//         const result = await issueService.updateIssueInDB(Number(id), req.body);
+    //     if (userRole === 'contributor') {
+    //         if (existingIssue.reporter?.id !== loggedInUserId) {
+    //             return sendResponse(res, {
+    //                 statusCode: StatusCodes.UNAUTHORIZED,
+    //                 success: false,
+    //                 message: 'You are not authorized to update this issue'
+    //             });
+    //         }
+    //         if (existingIssue.status !== 'open') {
+    //             return sendResponse(res, {
+    //                 statusCode: StatusCodes.UNAUTHORIZED,
+    //                 success: false,
+    //                 message: "You can only update issues with an 'open' status"
+    //             });
+    //         }
+    //     }
 
-//         sendResponse(res, {
-//             statusCode: 200,
-//             success: true,
-//             message: "Issue updated successfully",
-//             data: result
-//         })
-//     } catch (error) {
-//         sendResponse(res, {
-//             statusCode: 500,
-//             success: false,
-//             message: error instanceof Error ? error.message : "An unknown error occurred",
-//             error: error
-//         })
-//     }
-// }
+    //     // Perform update operation in DB
+    //     const result = await issueService.updateIssueInDB(Number(id), req.body);
+
+    //     // Success response
+    //     sendResponse(res, {
+    //         statusCode: StatusCodes.OK,
+    //         success: true,
+    //         message: "Issue updated successfully",
+    //         data: result
+    //     });
+    // } catch (error) {
+    //     sendResponse(res, {
+    //         statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+    //         success: false,
+    //         message: error instanceof Error ? error.message : "Internal server error. Please try again later.",
+    //         error: error
+    //     });
+    // }
+};
 
 
 
