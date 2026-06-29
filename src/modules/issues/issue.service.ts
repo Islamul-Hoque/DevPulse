@@ -114,19 +114,7 @@ const getSingleIssueFromDB = async (id: number) => {
     };
 };
 
-
-// const getSingleIssueFromDB = async (id: number) => {
-//     const result = await pool.query(
-//         `SELECT * FROM issues
-//             WHERE id = $1`,
-//         [id]
-//     )
-//     return result;
-// }
-
-
-
-
+// Update issue
 // const updateIssueInDB = async (id: number, payload: IIssue) => {
 //     const { title, description, type, status } = payload;
 
@@ -157,6 +145,6 @@ export const issueService = {
     createIssueIntoDB,
     getAllIssuesFromDB,
     getSingleIssueFromDB,
-    //     updateIssueInDB,
+    updateIssueInDB,
     //     deleteIssueFromDB
 }
