@@ -121,67 +121,67 @@ const updateIssue = async (req: Request, res: Response) => {
     // Extract issue ID 
     const { id } = req.params;
 
-    // try {
-    //     // Fetch existing issue from DB
-    //     const existingIssue = await issueService.getSingleIssueFromDB(Number(id));
+    try {
+        // Fetch existing issue from DB
+        const existingIssue = await issueService.getSingleIssueFromDB(Number(id));
 
-    //     // If issue not found
-    //     if (!existingIssue) {
-    //         return sendResponse(res, {
-    //             statusCode: StatusCodes.NOT_FOUND,
-    //             success: false,
-    //             message: 'Issue not found'
-    //         });
-    //     }
+        // // If issue not found
+        // if (!existingIssue) {
+        //     return sendResponse(res, {
+        //         statusCode: StatusCodes.NOT_FOUND,
+        //         success: false,
+        //         message: 'Issue not found'
+        //     });
+        // }
 
-    //     // Extract logged-in user info from request
-    //     const loggedInUserId = req.user?.id;
-    //     const userRole = req.user?.role;
+        // // Extract logged-in user info from request
+        // const loggedInUserId = req.user?.id;
+        // const userRole = req.user?.role;
 
-    //     // If user not authenticated
-    //     if (!loggedInUserId) {
-    //         return sendResponse(res, {
-    //             statusCode: StatusCodes.UNAUTHORIZED,
-    //             success: false,
-    //             message: 'Unauthorized'
-    //         });
-    //     }
+        // // If user not authenticated
+        // if (!loggedInUserId) {
+        //     return sendResponse(res, {
+        //         statusCode: StatusCodes.UNAUTHORIZED,
+        //         success: false,
+        //         message: 'Unauthorized'
+        //     });
+        // }
 
-    //     if (userRole === 'contributor') {
-    //         if (existingIssue.reporter?.id !== loggedInUserId) {
-    //             return sendResponse(res, {
-    //                 statusCode: StatusCodes.UNAUTHORIZED,
-    //                 success: false,
-    //                 message: 'You are not authorized to update this issue'
-    //             });
-    //         }
-    //         if (existingIssue.status !== 'open') {
-    //             return sendResponse(res, {
-    //                 statusCode: StatusCodes.UNAUTHORIZED,
-    //                 success: false,
-    //                 message: "You can only update issues with an 'open' status"
-    //             });
-    //         }
-    //     }
+        // if (userRole === 'contributor') {
+        //     if (existingIssue.reporter?.id !== loggedInUserId) {
+        //         return sendResponse(res, {
+        //             statusCode: StatusCodes.UNAUTHORIZED,
+        //             success: false,
+        //             message: 'You are not authorized to update this issue'
+        //         });
+        //     }
+        //     if (existingIssue.status !== 'open') {
+        //         return sendResponse(res, {
+        //             statusCode: StatusCodes.UNAUTHORIZED,
+        //             success: false,
+        //             message: "You can only update issues with an 'open' status"
+        //         });
+        //     }
+        // }
 
-    //     // Perform update operation in DB
-    //     const result = await issueService.updateIssueInDB(Number(id), req.body);
+        // // Perform update operation in DB
+        // const result = await issueService.updateIssueInDB(Number(id), req.body);
 
-    //     // Success response
-    //     sendResponse(res, {
-    //         statusCode: StatusCodes.OK,
-    //         success: true,
-    //         message: "Issue updated successfully",
-    //         data: result
-    //     });
-    // } catch (error) {
-    //     sendResponse(res, {
-    //         statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
-    //         success: false,
-    //         message: error instanceof Error ? error.message : "Internal server error. Please try again later.",
-    //         error: error
-    //     });
-    // }
+        // // Success response
+        // sendResponse(res, {
+        //     statusCode: StatusCodes.OK,
+        //     success: true,
+        //     message: "Issue updated successfully",
+        //     data: result
+        // });
+    } catch (error) {
+        sendResponse(res, {
+            statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+            success: false,
+            message: error instanceof Error ? error.message : "Internal server error. Please try again later.",
+            error: error
+        });
+    }
 };
 
 
