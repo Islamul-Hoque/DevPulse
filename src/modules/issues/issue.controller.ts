@@ -125,14 +125,14 @@ const updateIssue = async (req: Request, res: Response) => {
         // Fetch existing issue from DB
         const existingIssue = await issueService.getSingleIssueFromDB(Number(id));
 
-        // // If issue not found
-        // if (!existingIssue) {
-        //     return sendResponse(res, {
-        //         statusCode: StatusCodes.NOT_FOUND,
-        //         success: false,
-        //         message: 'Issue not found'
-        //     });
-        // }
+        // Handle not-found
+        if (!existingIssue) {
+            return sendResponse(res, {
+                statusCode: StatusCodes.NOT_FOUND,
+                success: false,
+                message: 'Issue not found'
+            });
+        }
 
         // // Extract logged-in user info from request
         // const loggedInUserId = req.user?.id;
