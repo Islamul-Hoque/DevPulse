@@ -53,13 +53,13 @@ const getAllIssues = async (req: Request, res: Response) => {
             status as string
         );
 
-        // // Success response
-        // sendResponse(res, {
-        //     statusCode: 200,
-        //     success: true,
-        //     message: "Issues retrieved successfully",
-        //     data: result
-        // })
+        // Success response
+        sendResponse(res, {
+            statusCode: 200,
+            success: true,
+            message: "Issues retrieved successfully",
+            data: result
+        })
 
     } catch (error) {
         sendResponse(res, {
