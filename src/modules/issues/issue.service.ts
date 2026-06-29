@@ -47,15 +47,15 @@ const getAllIssuesFromDB = async ( sort: string = "newest", type?: string, statu
 
     if (issues.length === 0) return [];
 
-    // // Collect reporter_ids
-    // const reporterIds = issues.map((issue) => issue.reporter_id);
+    // Collect reporter_ids
+    const reporterIds = issues.map((issue) => issue.reporter_id);
 
-    // // Fetch reporter details in batch
-    // const reportersResult = await pool.query(
-    //     `SELECT id, name, role FROM users WHERE id = ANY($1)`,
-    //     [reporterIds]
-    // );
-    // const reporters = reportersResult.rows;
+    // Fetch reporter details in batch
+    const reportersResult = await pool.query(
+        `SELECT id, name, role FROM users WHERE id = ANY($1)`,
+        [reporterIds]
+    );
+    const reporters = reportersResult.rows;
 
     // // Merge reporter details into issues
     // const enrichedIssues = issues.map(({ reporter_id, created_at, updated_at, ...issue }) => {
