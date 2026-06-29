@@ -18,61 +18,65 @@ const createIssueIntoDB = async (payload: IIssue) => {
 }
 
 // Get all issues
-// const getAllIssuesFromDB = async ( sort: string = "newest", type?: string, status?: string) => {
-//     // 1. Build base query for issues
-//     let query = `SELECT * FROM issues`;
-//     const values: any[] = [];
-//     const conditions: string[] = [];
+const getAllIssuesFromDB = async ( sort: string = "newest", type?: string, status?: string) => {
 
-//     if (type) {
-//         values.push(type);
-//         conditions.push(`type = $${values.length}`);
-//     }
+    let query = `SELECT * FROM issues`;
+    const values: any[] = [];
+    const conditions: string[] = [];
 
-//     if (status) {
-//         values.push(status);
-//         conditions.push(`status = $${values.length}`);
-//     }
+    // if (type) {
+    //     values.push(type);
+    //     conditions.push(`type = $${values.length}`);
+    // }
 
-//     if (conditions.length > 0) {
-//         query += ` WHERE ` + conditions.join(" AND ");
-//     }
+    // if (status) {
+    //     values.push(status);
+    //     conditions.push(`status = $${values.length}`);
+    // }
 
-//     query += sort === "oldest"  ? ` ORDER BY created_at ASC`  : ` ORDER BY created_at DESC`;
+    // if (conditions.length > 0) query += ` WHERE ` + conditions.join(" AND ");
 
-//     // 2. Fetch issues
-//     const issuesResult = await pool.query(query, values);
-//     const issues = issuesResult.rows;
+    // // Query parameter for sorting 
+    // query += sort === "oldest"
+    //     ? ` ORDER BY created_at ASC`
+    //     : ` ORDER BY created_at DESC`;
 
-//     if (issues.length === 0) return [];
+    // // Fetch issues
+    // const issuesResult = await pool.query(query, values);
+    // const issues = issuesResult.rows;
 
-//     // 3. Collect reporter_ids
-//     const reporterIds = issues.map((issue) => issue.reporter_id);
+    // if (issues.length === 0) return [];
 
-//     // 4. Fetch reporter details in batch
-//     const reportersResult = await pool.query(
-//         `SELECT id, name, role FROM users WHERE id = ANY($1)`,
-//         [reporterIds]
-//     );
-//     const reporters = reportersResult.rows;
+    // // Collect reporter_ids
+    // const reporterIds = issues.map((issue) => issue.reporter_id);
 
-//     // 5. Merge reporter details into issues
-//     const enrichedIssues = issues.map((issue) => {
-//         const reporter = reporters.find((r) => r.id === issue.reporter_id);
-//         return {
-//             ...issue,
-//             reporter: reporter
-//                 ? {
-//                     id: reporter.id,
-//                     name: reporter.name,
-//                     role: reporter.role,
-//                 }
-//                 : null,
-//         };
-//     });
+    // // Fetch reporter details in batch
+    // const reportersResult = await pool.query(
+    //     `SELECT id, name, role FROM users WHERE id = ANY($1)`,
+    //     [reporterIds]
+    // );
+    // const reporters = reportersResult.rows;
 
-//     return enrichedIssues;
-// };
+    // // Merge reporter details into issues
+    // const enrichedIssues = issues.map(({ reporter_id, created_at, updated_at, ...issue }) => {
+    //     const reporter = reporters.find((r) => r.id === reporter_id);
+    //     return {
+    //         ...issue,
+    //         reporter: reporter
+    //             ? {
+    //                 id: reporter.id,
+    //                 name: reporter.name,
+    //                 role: reporter.role,
+    //             }
+    //             : null,
+    //         created_at,
+    //         updated_at,
+    //     };
+    // });
+
+    return enrichedIssues;
+};
+
 
 
 
