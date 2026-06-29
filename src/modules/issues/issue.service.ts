@@ -24,22 +24,22 @@ const getAllIssuesFromDB = async ( sort: string = "newest", type?: string, statu
     const values: any[] = [];
     const conditions: string[] = [];
 
-    // if (type) {
-    //     values.push(type);
-    //     conditions.push(`type = $${values.length}`);
-    // }
+    if (type) {
+        values.push(type);
+        conditions.push(`type = $${values.length}`);
+    }
 
-    // if (status) {
-    //     values.push(status);
-    //     conditions.push(`status = $${values.length}`);
-    // }
+    if (status) {
+        values.push(status);
+        conditions.push(`status = $${values.length}`);
+    }
 
-    // if (conditions.length > 0) query += ` WHERE ` + conditions.join(" AND ");
+    if (conditions.length > 0) query += ` WHERE ` + conditions.join(" AND ");
 
-    // // Query parameter for sorting 
-    // query += sort === "oldest"
-    //     ? ` ORDER BY created_at ASC`
-    //     : ` ORDER BY created_at DESC`;
+    // Query parameter for sorting 
+    query += sort === "oldest"
+        ? ` ORDER BY created_at ASC`
+        : ` ORDER BY created_at DESC`;
 
     // // Fetch issues
     // const issuesResult = await pool.query(query, values);
