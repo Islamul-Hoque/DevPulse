@@ -152,13 +152,13 @@ const getSingleIssue = async (req: Request, res: Response) => {
             });
         }
 
-        // // Success response
-        // sendResponse(res, {
-        //     statusCode: StatusCodes.OK,
-        //     success: true,
-        //     message: "Issue retrieved successfully",
-        //     data: issue,
-        // });
+        // Success response
+        sendResponse(res, {
+            statusCode: StatusCodes.OK,
+            success: true,
+            message: "Issue retrieved successfully",
+            data: issue,
+        });
     } catch (error) {
         sendResponse(res, {
             statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
