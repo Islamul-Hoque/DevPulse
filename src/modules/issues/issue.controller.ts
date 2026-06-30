@@ -188,41 +188,41 @@ const updateIssue = async (req: Request, res: Response) => {
 // Delete issues (Maintainer only)
 const deleteIssue = async (req: Request, res: Response) => {
     const { id } = req.params;
-    // try {
-    //     const userRole = req.user?.role;
-    //     if (userRole !== 'maintainer') {
-    //         return sendResponse(res, {
-    //             statusCode: StatusCodes.FORBIDDEN,
-    //             success: false,
-    //             message: "You are not maintainer to delete this issue"
-    //         })
-    //     }
+    try {
+        // const userRole = req.user?.role;
+        // if (userRole !== 'maintainer') {
+        //     return sendResponse(res, {
+        //         statusCode: StatusCodes.FORBIDDEN,
+        //         success: false,
+        //         message: "You are not maintainer to delete this issue"
+        //     })
+        // }
 
-    //     const result = await issueService.deleteIssueFromDB(Number(id));
+        // const result = await issueService.deleteIssueFromDB(Number(id));
 
-    //     if (!result) {
-    //         return sendResponse(res, {
-    //             statusCode: StatusCodes.NOT_FOUND,
-    //             success: false,
-    //             message: "Issue not found"
-    //         });
-    //     }
+        // if (!result) {
+        //     return sendResponse(res, {
+        //         statusCode: StatusCodes.NOT_FOUND,
+        //         success: false,
+        //         message: "Issue not found"
+        //     });
+        // }
 
 
-    //     // Success response
-    //     sendResponse(res, {
-    //         statusCode: StatusCodes.OK,
-    //         success: true,
-    //         message: "Issue deleted successfully"
-    //     })
-    // } catch (error) {
-    //     sendResponse(res, {
-    //         statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
-    //         success: false,
-    //         message: error instanceof Error ? error.message : "Internal server error.",
-    //         error: error
-    //     })
-    // }
+        // // Success response
+        // sendResponse(res, {
+        //     statusCode: StatusCodes.OK,
+        //     success: true,
+        //     message: "Issue deleted successfully"
+        // })
+    } catch (error) {
+        sendResponse(res, {
+            statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+            success: false,
+            message: error instanceof Error ? error.message : "Internal server error.",
+            error: error
+        })
+    }
 }
 
 
