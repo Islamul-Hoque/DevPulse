@@ -9,11 +9,11 @@ import { issueRoute} from "./modules/issues/issue.route";
 
 const app: Application = express();
 
-// Built-in middleware: JSON, text, and URL-encoded body parsing
-app.use(CookieParser());
+// Built-in middleware
 app.use(express.json());
-app.use(express.text());
-app.use(express.urlencoded({ extended: true }));
+// app.use(CookieParser());
+// app.use(express.text());
+// app.use(express.urlencoded({ extended: true }));
 
 app.use(
     cors({
@@ -26,7 +26,7 @@ app.use(
 );
 
 
-// Root route handler (GET)
+// Root route handler
 app.get("/", (req: Request, res: Response) => {
     res.status(200).json({
         "status": true,
@@ -45,4 +45,5 @@ app.use('/api/issues',issueRoute);
 
 // Global Error Handling Middleware
 app.use(globalErrorHandler);
+
 export default app;
