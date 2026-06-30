@@ -214,12 +214,12 @@ const deleteIssue = async (req: Request, res: Response) => {
             });
         }
 
-        // // Success response
-        // sendResponse(res, {
-        //     statusCode: StatusCodes.OK,
-        //     success: true,
-        //     message: "Issue deleted successfully"
-        // })
+        // Success response
+        sendResponse(res, {
+            statusCode: StatusCodes.OK,
+            success: true,
+            message: "Issue deleted successfully"
+        })
     } catch (error) {
         sendResponse(res, {
             statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
