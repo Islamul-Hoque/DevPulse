@@ -187,30 +187,32 @@ const updateIssue = async (req: Request, res: Response) => {
 
 // Delete issues (Maintainer only)
 const deleteIssue = async (req: Request, res: Response) => {
+
+    // Extract issue ID
     const { id } = req.params;
     try {
-        // Check user role from JWT payload
+        // role check from JWT payload
         const userRole = req.user?.role;
 
-        // // Only maintainer can delete issues
-        // if (userRole !== 'maintainer') {
-        //     return sendResponse(res, {
-        //         statusCode: StatusCodes.FORBIDDEN,
-        //         success: false,
-        //         message: "You are not maintainer to delete this issue"
-        //     })
-        // }
+        // Only maintainer can delete issues
+        if (userRole !== 'maintainer') {
+            return sendResponse(res, {
+                statusCode: StatusCodes.FORBIDDEN,
+                success: false,
+                message: "You are not maintainer to delete this issue"
+            })
+        }
 
-        // const result = await issueService.deleteIssueFromDB(Number(id));
+        const result = await issueService.deleteIssueFromDB(Number(id));
 
-        // // If issue not found
-        // if (!result) {
-        //     return sendResponse(res, {
-        //         statusCode: StatusCodes.NOT_FOUND,
-        //         success: false,
-        //         message: "Issue not found"
-        //     });
-        // }
+        // If issue not found
+        if (!result) {
+            return sendResponse(res, {
+                statusCode: StatusCodes.NOT_FOUND,
+                success: false,
+                message: "Issue not found"
+            });
+        }
 
         // // Success response
         // sendResponse(res, {
