@@ -189,7 +189,10 @@ const updateIssue = async (req: Request, res: Response) => {
 const deleteIssue = async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
-        // const userRole = req.user?.role;
+        // Check user role from JWT payload
+        const userRole = req.user?.role;
+
+        // // Only maintainer can delete issues
         // if (userRole !== 'maintainer') {
         //     return sendResponse(res, {
         //         statusCode: StatusCodes.FORBIDDEN,
@@ -200,6 +203,7 @@ const deleteIssue = async (req: Request, res: Response) => {
 
         // const result = await issueService.deleteIssueFromDB(Number(id));
 
+        // // If issue not found
         // if (!result) {
         //     return sendResponse(res, {
         //         statusCode: StatusCodes.NOT_FOUND,
@@ -207,7 +211,6 @@ const deleteIssue = async (req: Request, res: Response) => {
         //         message: "Issue not found"
         //     });
         // }
-
 
         // // Success response
         // sendResponse(res, {
